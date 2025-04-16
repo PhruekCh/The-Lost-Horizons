@@ -79,3 +79,49 @@ class NPC:
         else:
             self.show_dialogue = False  # Close dialogue if at the last message
             self.dialogue_index = 0  # Reset to start when reopened
+
+
+
+class SkeletonEnemy:
+    def __init__(self, image_path, x, y, scale=2, frame_count=7, frame_delay=10):
+        self.sprite_sheet = pygame.image.load(image_path).convert_alpha()
+        self.x = x
+        self.y = y
+        self.scale = scale
+        self.frame_count = frame_count
+        self.frame_delay = frame_delay
+
+        self.frames = self.load_frames()
+        self.current_frame = 0
+        self.tick = 0
+
+    def load_frames(self):
+        frames = []
+        frame_width = self.sprite_sheet.get_width() // self.frame_count
+        frame_height = self.sprite_sheet.get_height()
+
+        for i in range(self.frame_count):
+            frame = self.sprite_sheet.subsurface(
+                pygame.Rect(i * frame_width, 0, frame_width, frame_height)
+            )
+            frame = pygame.transform.scale(
+                frame,
+                (int(frame_width * self.scale), int(frame_height * self.scale))
+            )
+            frames.append(frame)
+
+        return frames
+
+    def update(self):
+        self.tick += 1
+        if self.tick >= self.frame_delay:
+            self.tick = 0
+            self.current_frame = (self.current_frame + 1) % self.frame_count
+
+    def draw(self, screen):
+        frame = self.frames[self.current_frame]
+        frame_rect = frame.get_rect()
+        screen.blit(frame, (
+            self.x - frame_rect.width // 2,
+            self.y - frame_rect.height // 2
+        ))
