@@ -30,8 +30,8 @@ cd '.\The Lost Horizons\'
 ![Preview](run_readme.png) Run by this button
 
 
-"Arrow up" to walk up
-"Arrow down" to walk down
-"Arrow right" to walk to the right
-"Arrow left" to walk to the left
-"E" to interact
+"Arrow up" to walk up  
+"Arrow down" to walk down  
+"Arrow right" to walk to the right  
+"Arrow left" to walk to the left  
+"E" to interact  
