@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="17" height="13" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="27">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="17" height="13" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="28">
  <tileset firstgid="1" source="Dungeon_Tileset_at.tsx"/>
  <layer id="4" name="Tile Layer 2" width="17" height="13">
   <data encoding="csv">
 129,104,104,183,104,109,109,109,109,109,104,104,104,104,104,104,107,
-129,104,183,104,124,103,104,124,124,105,124,105,103,104,124,104,203,
+129,104,183,104,124,103,104,124,184,185,124,105,103,104,124,104,203,
 129,231,153,153,153,153,153,153,153,153,153,153,212,212,212,212,203,
 129,153,153,153,202,153,153,153,153,153,153,153,135,212,212,212,203,
 129,153,153,202,153,135,135,135,135,135,135,135,135,135,135,122,203,
@@ -24,6 +24,13 @@
     <property name="target_stage" value="stage2"/>
     <property name="target_x" type="float" value="400"/>
     <property name="target_y" type="float" value="100"/>
+   </properties>
+  </object>
+  <object id="27" name="door" x="256.677" y="26.6049" width="65" height="35">
+   <properties>
+    <property name="target_stage" value="stage4"/>
+    <property name="target_x" type="float" value="400"/>
+    <property name="target_y" type="float" value="55"/>
    </properties>
   </object>
  </objectgroup>
