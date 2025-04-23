@@ -25,3 +25,8 @@ From the same terminal, start the game:
 
 ```bash
 python main.py
+
+"Arrow up" to walk up
+"Arrow down" to walk down
+"Arrow right" to walk to the right
+"Arrow left" to walk to the left
