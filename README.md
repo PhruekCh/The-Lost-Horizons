@@ -21,10 +21,11 @@
 
 ### 3. Run the Game
 
-From the same terminal, start the game:
+From the same terminal, path to the game folder:
 
 ```bash
 cd '.\The Lost Horizons\'
+```
 
 ![Preview](run_readme.png) Run by this button
 
