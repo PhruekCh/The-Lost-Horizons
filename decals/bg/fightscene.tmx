@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="17" height="13" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="28">
+ <tileset firstgid="1" source="Dungeon_Tileset_at.tsx"/>
+ <layer id="4" name="Tile Layer 2" width="17" height="13">
+  <data encoding="csv">
+129,104,104,183,104,109,109,109,109,109,104,104,104,104,104,104,107,
+129,104,183,104,124,103,104,124,184,185,124,105,103,104,124,104,203,
+129,231,153,153,153,153,153,153,153,153,153,153,134,151,212,151,203,
+129,153,153,153,202,153,153,153,153,153,153,153,134,134,151,212,203,
+129,153,153,202,153,135,135,135,135,135,135,135,135,134,135,122,203,
+198,153,153,134,134,135,153,135,135,135,135,135,135,135,135,151,203,
+198,153,134,134,134,135,135,135,135,135,135,135,135,153,134,152,203,
+129,233,134,138,138,138,138,138,135,135,135,135,135,135,134,135,203,
+129,134,134,138,138,138,138,138,138,138,138,138,138,152,135,153,203,
+129,134,134,134,138,138,138,138,138,138,138,138,152,134,134,122,203,
+129,135,134,134,233,135,135,135,135,135,135,135,153,134,134,212,203,
+129,135,134,134,135,135,182,183,217,217,183,187,135,135,135,135,203,
+161,163,163,163,163,163,163,250,153,153,250,250,250,163,163,163,251
+</data>
+ </layer>
+ <objectgroup id="5" name="Object Layer 2">
+  <object id="24" name="door" x="255.559" y="372.197" width="65" height="35">
+   <properties>
+    <property name="target_stage" value="stage3"/>
+    <property name="target_x" type="float" value="400"/>
+    <property name="target_y" type="float" value="100"/>
+   </properties>
+  </object>
+  <object id="27" name="door" x="256.677" y="26.6049" width="65" height="35">
+   <properties>
+    <property name="target_stage" value="stage5"/>
+    <property name="target_x" type="float" value="400"/>
+    <property name="target_y" type="float" value="550"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

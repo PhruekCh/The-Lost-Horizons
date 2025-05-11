@@ -30,7 +30,7 @@
    <properties>
     <property name="target_stage" value="stage4"/>
     <property name="target_x" type="float" value="400"/>
-    <property name="target_y" type="float" value="55"/>
+    <property name="target_y" type="float" value="550"/>
    </properties>
   </object>
  </objectgroup>

@@ -15,8 +15,8 @@
 
 ### 2. Install Game
 
-- pip install pygame-ce
-- pip install pytmx
+- python -m pip install pygame-ce
+- python -m pip install pytmx
 
 
 ### 3. Run the Game
@@ -24,7 +24,7 @@
 From the same terminal, path to the game folder:
 
 ```bash
-cd '.\The Lost Horizons\'
+cd '.\The_Lost_Horizons\'
 ```
 
 ![Preview](run_readme.png) Run by this button
@@ -35,3 +35,7 @@ cd '.\The Lost Horizons\'
 "Arrow right" to walk to the right  
 "Arrow left" to walk to the left  
 "E" to interact  
+
+In battle mode,  
+Arrow "left, right" to choose elements and moves.  
+Enter to confirm

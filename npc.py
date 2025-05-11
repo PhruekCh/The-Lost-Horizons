@@ -82,14 +82,28 @@ class NPC:
 
 
 
-class SkeletonEnemy:
-    def __init__(self, image_path, x, y, scale=2, frame_count=7, frame_delay=10):
+class Enemy:
+    def __init__(self, name, image_path, x, y, scale=2, frame_count=7, frame_delay=10, flip_horizontal=True,
+                  element_type="fire", max_hp=200, attack_image_path=None, attack_frame_count=None):
+        self.name = name
+        self.element_type = element_type
         self.sprite_sheet = pygame.image.load(image_path).convert_alpha()
         self.x = x
         self.y = y
         self.scale = scale
         self.frame_count = frame_count
         self.frame_delay = frame_delay
+        self.max_hp = max_hp
+        self.hp = self.max_hp
+        self.flip_horizontal = flip_horizontal
+        self.frames = self.load_frames()
+        self.is_attacking = False
+        self.attack_frames = []
+
+        self.current_frame = 0
+        self.tick_count = 0
+        if attack_image_path:
+            self.attack_frames = self.load_additional_frames(attack_image_path, attack_frame_count, reverse=True)
 
         self.frames = self.load_frames()
         self.current_frame = 0
@@ -104,24 +118,72 @@ class SkeletonEnemy:
             frame = self.sprite_sheet.subsurface(
                 pygame.Rect(i * frame_width, 0, frame_width, frame_height)
             )
+
+            if self.flip_horizontal:
+                frame = pygame.transform.flip(frame, True, False)
+
+            frame = pygame.transform.scale(
+                frame,
+                (int(frame_width * self.scale), int(frame_height * self.scale))
+            )
+
+            frames.append(frame)
+
+        return frames
+
+    def update(self):
+        self.tick_count += 1
+        if self.tick_count >= self.frame_delay:
+            self.tick_count = 0
+            self.current_frame += 1
+
+            if self.is_attacking and self.attack_frames:
+                if self.current_frame >= len(self.attack_frames):
+                    self.current_frame = 0
+                    self.is_attacking = False  # Done attacking, back to idle
+            else:
+                if self.current_frame >= len(self.frames):
+                    self.current_frame = 0
+
+
+
+    def draw(self, screen):
+        if self.is_attacking and self.attack_frames:
+            frame_list = self.attack_frames
+        else:
+            frame_list = self.frames
+
+        # ✅ Safety: Make sure current_frame is in bounds
+        if self.current_frame >= len(frame_list):
+            self.current_frame = 0  # reset if out of range
+
+        frame = frame_list[self.current_frame]
+        screen.blit(frame, (
+            self.x - (frame.get_width() // 2),
+            self.y - (frame.get_height() // 2)
+        ))
+
+
+
+
+    def load_additional_frames(self, image_path, frame_count, reverse=False):
+        frames = []
+        sprite_sheet = pygame.image.load(image_path).convert_alpha()
+        frame_width = sprite_sheet.get_width() // frame_count
+        frame_height = sprite_sheet.get_height()
+
+        for i in range(frame_count):
+            frame = sprite_sheet.subsurface(
+                pygame.Rect(i * frame_width, 0, frame_width, frame_height)
+            )
             frame = pygame.transform.scale(
                 frame,
                 (int(frame_width * self.scale), int(frame_height * self.scale))
             )
             frames.append(frame)
 
+        if reverse:
+            frames = frames[::-1]
+
         return frames
 
-    def update(self):
-        self.tick += 1
-        if self.tick >= self.frame_delay:
-            self.tick = 0
-            self.current_frame = (self.current_frame + 1) % self.frame_count
-
-    def draw(self, screen):
-        frame = self.frames[self.current_frame]
-        frame_rect = frame.get_rect()
-        screen.blit(frame, (
-            self.x - frame_rect.width // 2,
-            self.y - frame_rect.height // 2
-        ))

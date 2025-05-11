@@ -1,5 +1,5 @@
 import pygame
-from npc import NPC, SkeletonEnemy
+from npc import NPC, Enemy
 import pytmx
 from pytmx.util_pygame import load_pygame
 
@@ -18,7 +18,11 @@ class AreaManager:
             "stage1": load_pygame("decals/bg/stage1.tmx"),
             "stage2": load_pygame("decals/bg/stage2.tmx"),
             "stage3": load_pygame("decals/bg/stage3.tmx"),
-            "stage5": load_pygame("decals/bg/stage1.tmx")
+            "stage4": load_pygame("decals/bg/stage4.tmx"),
+            "stage5": load_pygame("decals/bg/stage5.tmx"),
+            "stage6": load_pygame("decals/bg/stage6.tmx"),
+            "stage7": load_pygame("decals/bg/stage7.tmx"),
+            "stage8": load_pygame("decals/bg/stage8.tmx")
         }
 
         self.current_stage = "stage1"
@@ -35,9 +39,25 @@ class AreaManager:
         self.npcs = self.spawn_npcs_for_stage(stage_name)
         self.doors = self.load_doors_from_map()
         self.collision_layer = self.find_collision_layer()
-        self.skeletons = []
+        self.enemy = []
         if stage_name == "stage3":
-            self.skeletons.append(SkeletonEnemy("decals/character/skeleton/Idle.png", 400, 100))
+            self.enemy.append(Enemy("skeleton","decals/character/skeleton/Idle.png", 400, 100))
+
+        if stage_name == "stage4":
+            self.enemy.append(
+        Enemy("Samurai", "decals/character/samurai/Idle.png", 400, 150, frame_count=6))
+
+        if stage_name == "stage5":
+            self.enemy.append(
+        Enemy("Kitsune", "decals/character/kitsune/Idle.png", 400, 150, frame_count=8))
+
+        if stage_name == "stage6":
+            self.enemy.append(
+        Enemy("Satyr", "decals/character/satyr/Idle.png", 400, 150, frame_count=7))
+
+        if stage_name == "stage7":
+            self.enemy.append(
+        Enemy("Gorgon", "decals/character/gorgon/Idle.png", 400, 150, frame_count=7))
 
     def find_collision_layer(self):
         for layer in self.tmx_data.layers:
@@ -81,7 +101,7 @@ class AreaManager:
                                         "I think we should stick together, I mean right?"], 60, 50, True)
             ],
             "stage5": [
-                ("lancer", (100, 150), ["Hey! don't come any closer", "Stage 5 initiated"], 100, 50)
+                ("lancer", (100, 100), ["Hey! don't come any closer", "Run away!"], 100, 0)
             ],
         }
 
@@ -137,13 +157,15 @@ class AreaManager:
 
         for npc in self.npcs:
             npc.draw(self.screen)
-        for skeleton in self.skeletons:
-            skeleton.draw(self.screen)
+        for enemy in self.enemy:
+            enemy.is_attacking = False
+            enemy.draw(self.screen)
+
 
     def update_npcs(self):
         for npc in self.npcs:
             npc.update()
-        for skeleton in self.skeletons:
+        for skeleton in self.enemy:
             skeleton.update()
 
     def check_interactions(self):
@@ -167,6 +189,23 @@ class AreaManager:
             if door_rect.colliderect(player_rect.inflate(10, 10)):
                 return props
         return None
+    
+    def get_nearby_key(self):
+        for obj in self.tmx_data.objects:
+            if obj.properties.get("obj_type") == "key":
+                key_rect = pygame.Rect(
+                    obj.x * TILE_SCALE,
+                    obj.y * TILE_SCALE,
+                    obj.width * TILE_SCALE,
+                    obj.height * TILE_SCALE
+                )
+                player_rect = pygame.Rect(
+                    self.player.x - 10, self.player.y - 10, 20, 20
+                )
+                if key_rect.colliderect(player_rect.inflate(10, 10)):
+                    return True
+        return False
+
 
     def handle_stage_transition(self):
         buffer = 10
